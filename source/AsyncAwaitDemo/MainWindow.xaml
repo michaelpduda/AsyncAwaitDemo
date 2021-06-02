@@ -9,10 +9,59 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Async/Await Demo Application"
-        Height="450"
+        Height="700"
         Width="800"
         WindowStartupLocation="CenterScreen">
-    <Grid>
-
-    </Grid>
+    <Window.Resources>
+        <Style TargetType="Ellipse">
+            <Setter Property="Margin"
+                    Value="10" />
+            <Setter Property="Height"
+                    Value="75" />
+            <Setter Property="Width"
+                    Value="{Binding Height, RelativeSource={RelativeSource Self}}" />
+            <Setter Property="Stroke"
+                    Value="Black" />
+            <Setter Property="StrokeThickness"
+                    Value="3" />
+        </Style>
+    </Window.Resources>
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Top"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Ellipse RenderTransformOrigin="0.5 0.5">
+                <Ellipse.Fill>
+                    <LinearGradientBrush>
+                        <GradientStop Color="Red"
+                                      Offset="0.0"  />
+                        <GradientStop Color="Red"
+                                      Offset="0.5"  />
+                        <GradientStop Color="Blue"
+                                      Offset="0.5" />
+                        <GradientStop Color="Blue"
+                                      Offset="1.0" />
+                    </LinearGradientBrush>
+                </Ellipse.Fill>
+                <Ellipse.RenderTransform>
+                    <RotateTransform x:Name="noFreeze" />
+                </Ellipse.RenderTransform>
+                <Ellipse.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)"
+                                                 To="-360"
+                                                 Duration="0:0:1"
+                                                 RepeatBehavior="Forever" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Ellipse.Triggers>
+            </Ellipse>
+            <Ellipse x:Name="Light1" />
+            <Ellipse x:Name="Light2" />
+            <Ellipse x:Name="Light3" />
+        </StackPanel>
+    </DockPanel>
 </Window>
