@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is part of the Async/Await Demo Project, which is released under MIT License.
+     See LICENSE.md or visit:
+     https://github.com/michaelpduda/AsyncAwaitDemo/blob/master/LICENSE.md
+     -->
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+</Project>
