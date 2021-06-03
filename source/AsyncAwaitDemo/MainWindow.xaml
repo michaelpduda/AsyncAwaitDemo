@@ -127,6 +127,12 @@
             <Button Click="Demo_18_Click">
                 <TextBlock>18 Semi Async<LineBreak />Will Block UI Thread<LineBreak />Caught Exception<LineBreak />Will Crash</TextBlock>
             </Button>
+            <Button Click="Demo_19_Click">
+                <TextBlock>19 Fake Async<LineBreak />Will Block UI Thread</TextBlock>
+            </Button>
+            <Button Click="Demo_20_Click">
+                <TextBlock>20 Async-ified Callback<LineBreak />Won't Block UI Thread</TextBlock>
+            </Button>
         </UniformGrid>
     </DockPanel>
 </Window>

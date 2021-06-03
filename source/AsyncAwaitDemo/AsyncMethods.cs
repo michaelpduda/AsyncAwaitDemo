@@ -399,5 +399,48 @@ namespace AsyncAwaitDemo
             _lightUp(0);
             _lockUi(false);
         }
+
+        /// <summary>
+        /// Fake async Task method.
+        /// </summary>
+        public async Task Demo_19()
+        {
+            async Task LibraryAsyncMethod()
+            {
+                await Task.Delay(TimeSpan.FromSeconds(1));
+            }
+            Task LibraryFakeAsyncMethod()
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+                return Task.CompletedTask;
+            }
+
+            _lockUi(true);
+            _reset();
+            await Task.Delay(TimeSpan.FromSeconds(1));
+            await LibraryFakeAsyncMethod();
+            for (var i = 0; i < 3; i++)
+                _lightUp(i);
+            _lockUi(false);
+        }
+
+        /// <summary>
+        /// Asyncify a callback.
+        /// </summary>
+        public async Task Demo_20()
+        {
+            _lockUi(true);
+            _reset();
+            var taskCompletionSource = new TaskCompletionSource();
+            using (var timer = new Timer(
+                _ => taskCompletionSource.SetResult(),
+                null, TimeSpan.FromSeconds(1), TimeSpan.Zero))
+            {
+                await taskCompletionSource.Task;
+            }
+            for (var i = 0; i < 3; i++)
+                _lightUp(i);
+            _lockUi(false);
+        }
     }
 }
