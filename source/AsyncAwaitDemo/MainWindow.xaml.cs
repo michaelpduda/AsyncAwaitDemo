@@ -10,8 +10,13 @@ namespace AsyncAwaitDemo
 {
     public partial class MainWindow : Window
     {
-        public MainWindow() =>
+        private readonly AsyncMethods _asyncMethods;
+
+        public MainWindow()
+        {
+            _asyncMethods = new AsyncMethods(LockUi, Reset, LightUp);
             InitializeComponent();
+        }
 
         private void LightUp(int light) =>
             (light switch
@@ -22,11 +27,32 @@ namespace AsyncAwaitDemo
                 _ => throw new ArgumentOutOfRangeException(nameof(light), light, "Allowed values are 0 through 2")
             }).Fill = Brushes.Red;
 
+        private void LockUi(bool isLocked) =>
+            MainGrid.IsEnabled = !isLocked;
+
         private void Reset()
         {
             Light1.Fill = Brushes.Transparent;
             Light2.Fill = Brushes.Transparent;
             Light3.Fill = Brushes.Transparent;
         }
+
+        private void Demo_01_Click(object sender, RoutedEventArgs e) =>
+            _asyncMethods.Demo_01();
+
+        private void Demo_02_Click(object sender, RoutedEventArgs e) =>
+             _asyncMethods.Demo_02();
+
+        private void Demo_03_Click(object sender, RoutedEventArgs e) =>
+            _asyncMethods.Demo_03();
+
+        private void Demo_04_Click(object sender, RoutedEventArgs e) =>
+            _asyncMethods.Demo_04();
+
+        private void Demo_05_Click(object sender, RoutedEventArgs e) =>
+            _asyncMethods.Demo_05();
+
+        private async void Demo_06_Click(object sender, RoutedEventArgs e) =>
+            await _asyncMethods.Demo_06();
     }
 }

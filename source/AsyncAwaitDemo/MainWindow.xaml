@@ -25,6 +25,14 @@
             <Setter Property="StrokeThickness"
                     Value="3" />
         </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin"
+                    Value="10" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="TextAlignment"
+                    Value="Center" />
+        </Style>
     </Window.Resources>
     <DockPanel Margin="10">
         <StackPanel DockPanel.Dock="Top"
@@ -63,5 +71,26 @@
             <Ellipse x:Name="Light2" />
             <Ellipse x:Name="Light3" />
         </StackPanel>
+        <UniformGrid x:Name="MainGrid"
+                     Columns="4">
+            <Button Click="Demo_01_Click">
+                <TextBlock>01 No Async<LineBreak />Will Block UI Thread<LineBreak />Won't Lock UI<LineBreak />Won't Crash</TextBlock>
+            </Button>
+            <Button Click="Demo_02_Click">
+                <TextBlock>02 No Async<LineBreak />Will Block UI Thread<LineBreak />Won't Lock UI<LineBreak />Will Crash</TextBlock>
+            </Button>
+            <Button Click="Demo_03_Click">
+                <TextBlock>03 No Async<LineBreak />Won't Block UI Thread<LineBreak />Won't Lock UI<LineBreak />Will Crash</TextBlock>
+            </Button>
+            <Button Click="Demo_04_Click">
+                <TextBlock>04 No Async<LineBreak />Won't Block UI Thread<LineBreak />Won't Lock UI<LineBreak />Won't Crash</TextBlock>
+            </Button>
+            <Button Click="Demo_05_Click">
+                <TextBlock>05 No Async<LineBreak />Won't Block UI Thread<LineBreak />Will Lock UI<LineBreak />Won't Crash</TextBlock>
+            </Button>
+            <Button Click="Demo_06_Click">
+                <TextBlock>06 Async</TextBlock>
+            </Button>
+        </UniformGrid>
     </DockPanel>
 </Window>
