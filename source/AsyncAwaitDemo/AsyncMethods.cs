@@ -221,5 +221,71 @@ namespace AsyncAwaitDemo
             }
             _lockUi(false);
         }
+
+        /// <summary>
+        /// Semi-async implementation. Will cause a deadlock.
+        /// </summary>
+        public void Demo_11()
+        {
+            async Task LibraryAsyncMethod()
+            {
+                await Task.Delay(TimeSpan.FromSeconds(1.5));
+            }
+
+            _lockUi(true);
+            _reset();
+            LibraryAsyncMethod().GetAwaiter().GetResult();
+            for (var i = 0; i < 3; i++)
+                _lightUp(i);
+            _lockUi(false);
+        }
+
+        /// <summary>
+        /// Semi-async implementation. Won't cause a deadlock, but still not preferred because it blocks the UI thread and breaks UI locking.
+        /// </summary>
+        public void Demo_12()
+        {
+            async Task LibraryAsyncMethod()
+            {
+                await Task.Delay(TimeSpan.FromSeconds(1.5)).ConfigureAwait(false);
+            }
+
+            _lockUi(true);
+            _reset();
+            LibraryAsyncMethod().GetAwaiter().GetResult();
+            for (var i = 0; i < 3; i++)
+                _lightUp(i);
+            _lockUi(false);
+        }
+
+        /// <summary>
+        /// Async implementation with background work in threadpool.
+        /// </summary>
+        public async Task Demo_13()
+        {
+            _lockUi(true);
+            _reset();
+            for (var i = 0; i < 3; i++)
+            {
+                await Task.Run(() => Thread.Sleep(TimeSpan.FromSeconds(1)));
+                _lightUp(i);
+            }
+            _lockUi(false);
+        }
+
+        /// <summary>
+        /// Async implementation with async background work in threadpool.
+        /// </summary>
+        public async Task Demo_14()
+        {
+            _lockUi(true);
+            _reset();
+            for (var i = 0; i < 3; i++)
+            {
+                await Task.Run(async () => await Task.Delay(TimeSpan.FromSeconds(1)));
+                _lightUp(i);
+            }
+            _lockUi(false);
+        }
     }
 }

@@ -103,6 +103,18 @@
             <Button Click="Demo_10_Click">
                 <TextBlock>10 Async<LineBreak />Randomized Times Again<LineBreak />Won't Crash</TextBlock>
             </Button>
+            <Button Click="Demo_11_Click">
+                <TextBlock>11 Semi-Async<LineBreak />Will Block UI Thread<LineBreak />Will Deadlock</TextBlock>
+            </Button>
+            <Button Click="Demo_12_Click">
+                <TextBlock>12 Semi-Async<LineBreak />Will Block UI Thread<LineBreak />Won't Deadlock</TextBlock>
+            </Button>
+            <Button Click="Demo_13_Click">
+                <TextBlock>13 Async<LineBreak />Background Thread</TextBlock>
+            </Button>
+            <Button Click="Demo_14_Click">
+                <TextBlock>14 Async<LineBreak />Background Async Thread</TextBlock>
+            </Button>
         </UniformGrid>
     </DockPanel>
 </Window>
