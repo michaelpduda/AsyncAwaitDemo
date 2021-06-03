@@ -128,5 +128,98 @@ namespace AsyncAwaitDemo
             }
             _lockUi(false);
         }
+
+        /// <summary>
+        /// Async implementation. Randomized light timers.
+        /// </summary>
+        public async Task Demo_07()
+        {
+            _lockUi(true);
+            _reset();
+            var tasks = new List<Task>();
+            var random = new Random(Guid.NewGuid().GetHashCode());
+            for (var i = 0; i < 3; i++)
+                tasks.Add(Task.Delay(TimeSpan.FromSeconds(random.NextDouble() * 3.0)));
+            var j = 0;
+            while (tasks.Count > 0)
+            {
+                var completed = await Task.WhenAny(tasks);
+                tasks.Remove(completed);
+                _lightUp(j++);
+            }
+            _lockUi(false);
+        }
+
+        /// <summary>
+        /// Async implementation. Randomized light timers again. This will crash for same reason as Demo 03.
+        /// </summary>
+        public async Task Demo_08()
+        {
+            _lockUi(true);
+            _reset();
+            var tasks = new List<Task<int>>();
+            var random = new Random(Guid.NewGuid().GetHashCode());
+            for (var i = 0; i < 3; i++)
+                tasks.Add(Task.Delay(TimeSpan.FromSeconds(random.NextDouble() * 3.0))
+                    .ContinueWith(t => i));
+            while (tasks.Count > 0)
+            {
+                var completed = await Task.WhenAny(tasks);
+                tasks.Remove(completed);
+                _lightUp(completed.Result);
+            }
+            _lockUi(false);
+        }
+
+        /// <summary>
+        /// Async implementation. Randomized light timers again. This won't crash.
+        /// </summary>
+        public async Task Demo_09()
+        {
+            _lockUi(true);
+            _reset();
+            var tasks = new List<Task<int>>();
+            var random = new Random(Guid.NewGuid().GetHashCode());
+            for (var i = 0; i < 3; i++)
+            {
+                var j = i;
+                tasks.Add(
+                    Task.Delay(TimeSpan.FromSeconds(random.NextDouble() * 3.0))
+                        .ContinueWith(t => j));
+            }
+            while (tasks.Count > 0)
+            {
+                var completed = await Task.WhenAny(tasks);
+                tasks.Remove(completed);
+                _lightUp(completed.Result);
+            }
+            _lockUi(false);
+        }
+
+        /// <summary>
+        /// Async implementation. Randomized light timers again. This won't crash.
+        /// </summary>
+        public async Task Demo_10()
+        {
+            async Task<int> AnotherAyncMethod(double delay, int i)
+            {
+                await Task.Delay(TimeSpan.FromSeconds(delay));
+                return i;
+            }
+
+            _lockUi(true);
+            _reset();
+            var tasks = new List<Task<int>>();
+            var random = new Random(Guid.NewGuid().GetHashCode());
+            for (var i = 0; i < 3; i++)
+                tasks.Add(AnotherAyncMethod(random.NextDouble() * 3.0, i));
+            while (tasks.Count > 0)
+            {
+                var completed = await Task.WhenAny(tasks);
+                tasks.Remove(completed);
+                _lightUp(completed.Result);
+            }
+            _lockUi(false);
+        }
     }
 }

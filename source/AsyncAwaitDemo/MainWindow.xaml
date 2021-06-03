@@ -91,6 +91,18 @@
             <Button Click="Demo_06_Click">
                 <TextBlock>06 Async</TextBlock>
             </Button>
+            <Button Click="Demo_07_Click">
+                <TextBlock>07 Async<LineBreak />Randomized Times</TextBlock>
+            </Button>
+            <Button Click="Demo_08_Click">
+                <TextBlock>08 Async<LineBreak />Randomized Times Again<LineBreak />Will Crash</TextBlock>
+            </Button>
+            <Button Click="Demo_09_Click">
+                <TextBlock>09 Async<LineBreak />Randomized Times Again<LineBreak />Won't Crash</TextBlock>
+            </Button>
+            <Button Click="Demo_10_Click">
+                <TextBlock>10 Async<LineBreak />Randomized Times Again<LineBreak />Won't Crash</TextBlock>
+            </Button>
         </UniformGrid>
     </DockPanel>
 </Window>

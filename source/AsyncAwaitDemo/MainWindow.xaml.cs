@@ -54,5 +54,17 @@ namespace AsyncAwaitDemo
 
         private async void Demo_06_Click(object sender, RoutedEventArgs e) =>
             await _asyncMethods.Demo_06();
+
+        private async void Demo_07_Click(object sender, RoutedEventArgs e) =>
+            await _asyncMethods.Demo_07();
+
+        private async void Demo_08_Click(object sender, RoutedEventArgs e) =>
+            await _asyncMethods.Demo_08();
+
+        private async void Demo_09_Click(object sender, RoutedEventArgs e) =>
+            await _asyncMethods.Demo_09();
+
+        private async void Demo_10_Click(object sender, RoutedEventArgs e) =>
+            await _asyncMethods.Demo_10();
     }
 }
