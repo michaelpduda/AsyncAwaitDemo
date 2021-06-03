@@ -115,6 +115,18 @@
             <Button Click="Demo_14_Click">
                 <TextBlock>14 Async<LineBreak />Background Async Thread</TextBlock>
             </Button>
+            <Button Click="Demo_15_Click">
+                <TextBlock>15 Semi Async<LineBreak />Will Block UI Thread<LineBreak />Uncaught Exception<LineBreak />Will Crash</TextBlock>
+            </Button>
+            <Button Click="Demo_16_Click">
+                <TextBlock>16 Semi Async<LineBreak />Will Block UI Thread<LineBreak />Caught Exception<LineBreak />Won't Crash</TextBlock>
+            </Button>
+            <Button Click="Demo_17_Click">
+                <TextBlock>17 Async<LineBreak />Caught Exception<LineBreak />Won't Crash</TextBlock>
+            </Button>
+            <Button Click="Demo_18_Click">
+                <TextBlock>18 Semi Async<LineBreak />Will Block UI Thread<LineBreak />Caught Exception<LineBreak />Will Crash</TextBlock>
+            </Button>
         </UniformGrid>
     </DockPanel>
 </Window>

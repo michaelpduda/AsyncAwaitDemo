@@ -287,5 +287,117 @@ namespace AsyncAwaitDemo
             }
             _lockUi(false);
         }
+
+        /// <summary>
+        /// Async void exception, causes crash.
+        /// </summary>
+        public void Demo_15()
+        {
+            async void LibraryAsyncMethod()
+            {
+                await Task.Delay(TimeSpan.FromSeconds(1));
+                throw new Exception("Goodbye");
+            }
+
+            _lockUi(true);
+            _reset();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+            try
+            {
+                LibraryAsyncMethod();
+            }
+            catch (Exception)
+            {
+                _lightUp(2);
+            }
+            for (var i = 0; i < 2; i++)
+                _lightUp(i);
+            _lockUi(false);
+        }
+
+        /// <summary>
+        /// Async exception, doesn't cause crash.
+        /// </summary>
+        public void Demo_16()
+        {
+            async Task LibraryAsyncMethod()
+            {
+                await Task.Delay(TimeSpan.FromSeconds(1)).ConfigureAwait(false);
+                throw new Exception("Goodbye");
+            }
+
+            _lockUi(true);
+            _reset();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+            try
+            {
+                LibraryAsyncMethod().GetAwaiter().GetResult();
+            }
+            catch (Exception)
+            {
+                _lightUp(2);
+            }
+            for (var i = 0; i < 2; i++)
+                _lightUp(i);
+            _lockUi(false);
+        }
+
+        /// <summary>
+        /// Async exception, doesn't cause crash.
+        /// </summary>
+        public async Task Demo_17()
+        {
+            async Task LibraryAsyncMethod()
+            {
+                await Task.Delay(TimeSpan.FromSeconds(1));
+                throw new Exception("Goodbye");
+            }
+
+            _lockUi(true);
+            _reset();
+            await Task.Delay(TimeSpan.FromSeconds(1));
+            try
+            {
+                await LibraryAsyncMethod();
+            }
+            catch (Exception)
+            { }
+            for (var i = 0; i < 3; i++)
+                _lightUp(i);
+            _lockUi(false);
+        }
+
+        /// <summary>
+        /// Async void exception, caught within, won't crash..
+        /// </summary>
+        public void Demo_18()
+        {
+            async void LibraryAsyncMethod()
+            {
+                try
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    throw new Exception("Goodbye");
+                }
+                catch (Exception)
+                {
+                    _lightUp(2);
+                }
+            }
+
+            _lockUi(true);
+            _reset();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+            try
+            {
+                LibraryAsyncMethod();
+            }
+            catch (Exception)
+            {
+                _lightUp(1);
+            }
+            _lightUp(0);
+            _lockUi(false);
+        }
     }
 }
